@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>explore | setwo.nexus</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background: radial-gradient(circle at top, #1a0033, #000000);
+  font-family: 'Orbitron', sans-serif;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* MOVING DIGITAL GRID */
+body::before{
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  background-image:
+  linear-gradient(rgba(255,0,255,0.07) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,0,255,0.07) 1px, transparent 1px);
+  background-size:40px 40px;
+  animation: moveGrid 25s linear infinite;
+  z-index:-1;
+}
+
+@keyframes moveGrid{
+  from{transform:translate(0,0);}
+  to{transform:translate(-40px,-40px);}
+}
+
+/* BACK BUTTON */
+.back-btn{
+  position:fixed;
+  top:20px;
+  left:20px;
+  text-decoration:none;
+  color:#ff00ff;
+  border:1px solid #ff00ff;
+  padding:8px 18px;
+  transition:0.3s;
+}
+
+.back-btn:hover{
+  box-shadow:0 0 15px #ff00ff, 0 0 30px red;
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:3rem;
+  color:#ff00ff;
+  text-shadow:0 0 20px #ff00ff, 0 0 40px red;
+  animation:pulseGlow 2s infinite alternate;
+}
+
+.hero p{
+  margin-top:15px;
+  color:#ff4dff;
+  letter-spacing:2px;
+}
+
+@keyframes pulseGlow{
+  from{ text-shadow:0 0 10px #ff00ff; }
+  to{ text-shadow:0 0 30px red, 0 0 50px #ff00ff; }
+}
+
+/* CARD SECTION */
+.card-container{
+  padding:80px 10%;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+}
+
+.card{
+  background:rgba(255,0,255,0.06);
+  border:1px solid rgba(255,0,0,0.4);
+  backdrop-filter:blur(15px);
+  padding:30px;
+  border-radius:15px;
+  transition:0.4s;
+  cursor:pointer;
+}
+
+.card h2{
+  color:#ff00ff;
+  margin-bottom:10px;
+}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.05);
+  box-shadow:0 0 25px #ff00ff, 0 0 60px red;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero h1{
+    font-size:2rem;
+  }
+}
+
+.card{
+  text-decoration:none;
+  color:white;
+  display:block;
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="index.html" class="back-btn">← Back</a>
+
+<section class="hero">
+  <h1>SETWO.NEXUS</h1>
+  <p>ACCESSING XII RPL 2...</p>
+</section>
+
+<section class="card-container">
+
+  <a href="album.html" class="card">
+    <h2>📸 FULL ALBUM</h2>
+    <p>All archived memories and class documentation.</p>
+  </a>
+
+  <a href="achievements.html" class="card">
+    <h2>🏆 ACHIEVEMENTS</h2>
+    <p>Competitions & awards earned.</p>
+  </a>
+
+</section>
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: 'Orbitron', sans-serif;
+}
+
+body {
+  background: linear-gradient(to bottom, #050b18, #000000);
+  color: #00eaff;
+  overflow-x: hidden;
+}
+
+/* PARTICLES */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  width: 100%;
+  padding: 15px 40px;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 20, 40, 0.6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 20px;
+  color: cyan;
+}
+
+.search-box {
+  display: flex;
+  background: rgba(0,255,255,0.1);
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.search-box input {
+  border: none;
+  padding: 8px 15px;
+  outline: none;
+  background: transparent;
+  color: cyan;
+}
+
+/* SECTION */
+.section {
+  min-height: 100vh;
+  padding: 120px 10%;
+  text-align: center;
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* GLITCH */
+.glitch {
+  font-size: 3rem;
+  color: cyan;
+  text-shadow: 0 0 20px #00eaff;
+}
+
+/* BUTTON */
+.neon-btn {
+  margin-top: 20px;
+  padding: 10px 30px;
+  background: transparent;
+  border: 2px solid cyan;
+  color: cyan;
+  cursor: pointer;
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.neon-btn:hover {
+  background: cyan;
+  color: black;
+  box-shadow: 0 0 20px cyan;
+}
+
+/* GLASS */
+.glass-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.glass-card {
+  background: rgba(0, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  padding: 20px;
+  border-radius: 15px;
+  width: 200px;
+  border: 1px solid rgba(0,255,255,0.3);
+  box-shadow: 0 0 20px rgba(0,255,255,0.3);
+  transition: 0.4s;
+}
+
+.glass-card:hover {
+  box-shadow: 0 0 30px cyan;
+}
+
+/* ================= MEMBERS ================= */
+
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+
+.member-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(0,255,255,0.4);
+  background: rgba(0,255,255,0.05);
+  transition: 0.3s;
+}
+
+.member-card:hover {
+  box-shadow: 0 0 15px cyan;
+}
+
+.member-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid cyan;
+}
+
+.member-info {
+  text-align: left;
+}
+
+.member-info h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.member-info p {
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* ================= SEARCH LIST MODE ================= */
+
+.member-grid.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.member-grid.list-view .member-card {
+  width: 100%;
+}
+
+/* ================= GALLERY ================= */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
+}
+
+.gallery-img {
+  width: 100%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.gallery-img:hover {
+  box-shadow: 0 0 20px cyan;
+}
+
+/* ================= POPUP ================= */
+
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.popup img {
+  max-width: 80%;
+}
+
+#close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* ================= CONTACT ================= */
+
+.contact-icons a {
+  margin: 20px;
+  display: inline-block;
+  text-decoration: none;
+  color: cyan;
+  transition: 0.3s;
+}
+
+.contact-icons a:hover {
+  text-shadow: 0 0 15px cyan;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .section {
+    padding: 100px 5%;
+  }
+
+  /* MEMBERS jadi 2 kolom */
+  .member-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .member-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .member-card img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain; /* FIX biar ga kepotong */
+  }
+
+  .member-info {
+    text-align: center;
+  }
+
+  /* GALLERY jadi 2 kolom */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-img {
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .glass-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .glass-card {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+#about h2 {
+  margin-bottom: 10px;
+}
+
+#about p {
+  margin-bottom: 35px;
+}
+
+@media (max-width: 1024px) {
+  .member-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .member-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .member-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Full Album | setwo.nexus</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  background: radial-gradient(circle at top,#1a0033,#000);
+  font-family:'Orbitron',sans-serif;
+  color:white;
+}
+
+h1{
+  text-align:center;
+  padding:40px 0;
+  color:#ff00ff;
+  text-shadow:0 0 20px #ff00ff,0 0 40px red;
+}
+
+.back-btn{
+  position:fixed;
+  top:20px;
+  left:20px;
+  text-decoration:none;
+  color:#ff00ff;
+  border:1px solid #ff00ff;
+  padding:8px 15px;
+}
+
+.gallery{
+  padding:20px 10%;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.gallery img{
+  width:100%;
+  cursor:pointer;
+  border-radius:10px;
+  transition:0.3s;
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+.gallery img:hover{
+  box-shadow:0 0 20px #ff00ff,0 0 40px red;
+  transform:scale(1.05);
+}
+
+/* POPUP */
+.popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.8);
+  justify-content:center;
+  align-items:center;
+}
+
+.popup img{
+  max-width:80%;
+  border-radius:10px;
+}
+
+.close{
+  position:absolute;
+  top:30px;
+  right:40px;
+  font-size:2rem;
+  cursor:pointer;
+  color:#ff00ff;
+}
+
+@media(max-width:768px){
+  .gallery{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<a href="explore.html" class="back-btn">← Back</a>
+
+<h1>FULL ALBUM XII RPL 2</h1>
+
+<div class="gallery">
+  <img src="album/doksikelas1.jpeg">
+  <img src="album/doksikelas2.jpeg">
+  <img src="album/doksikelas3.jpeg">
+  <img src="album/doksikelas4.jpeg">
+  <img src="album/doksikelas5.jpeg">
+  <img src="album/doksikelas6.jpeg">
+  <img src="album/doksikelas7.jpeg">
+  <img src="album/doksikelas8.jpeg">
+  <img src="album/doksikelas9.jpeg">
+  <img src="album/doksikelas10.jpeg">
+  <img src="album/doksikelas11.jpeg">
+  <img src="album/doksikelas12.jpeg">
+  <img src="album/doksikelas13.jpeg">
+  <img src="album/doksikelas14.jpeg">
+  <img src="album/doksikelas15.jpeg">
+  <img src="album/doksikelas16.jpeg">
+  <img src="album/doksikelas17.jpeg">
+  <img src="album/doksikelas18.jpeg">
+  <img src="album/doksikelas19.jpeg">
+  <img src="album/doksikelas20.jpeg">
+  <img src="album/doksikelas21.jpeg">
+  <img src="album/doksikelas22.jpeg">
+  <img src="album/doksikelas23.jpeg">
+  <img src="album/doksikelas24.jpeg">
+</div>
+
+<div class="popup" id="popup">
+  <span class="close" id="close">&times;</span>
+  <img id="popupImg">
+</div>
+
+<script>
+const images=document.querySelectorAll(".gallery img");
+const popup=document.getElementById("popup");
+const popupImg=document.getElementById("popupImg");
+const close=document.getElementById("close");
+
+images.forEach(img=>{
+  img.addEventListener("click",()=>{
+    popup.style.display="flex";
+    popupImg.src=img.src;
+  });
+});
+
+close.onclick=()=>popup.style.display="none";
+</script>
+
+</body>
+</html>
