@@ -4,105 +4,591 @@
 <meta charset="UTF-8">
 <title>Achievements | setwo.nexus</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-body{
+*{
   margin:0;
-  background: radial-gradient(circle at top,#360e0e,#000);
-  font-family:'Orbitron',sans-serif;
-  color:white;
+  padding:0;
+  box-sizing:border-box;
 }
 
-h1{
-  text-align:center;
-  padding:40px 0;
-  color:#6c0303;
-  text-shadow:0 0 20px #010001,0 0 40px red;
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(180,0,0,.18), transparent 28%),
+    radial-gradient(circle at 85% 80%, rgba(255,0,0,.12), transparent 30%),
+    radial-gradient(circle at top,#360e0e,#000);
+  font-family:'Orbitron',sans-serif;
+  color:white;
+  overflow-x:hidden;
 }
+
+/* ===== DIGITAL GRID ===== */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,0,0,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,0,0,.045) 1px,transparent 1px);
+  background-size:45px 45px;
+  opacity:.5;
+  z-index:-2;
+  animation:gridMove 20s linear infinite;
+}
+
+@keyframes gridMove{
+  from{
+    background-position:0 0;
+  }
+  to{
+    background-position:45px 45px;
+  }
+}
+
+/* ===== RED GLOW ===== */
+
+body::after{
+  content:"";
+  position:fixed;
+  width:350px;
+  height:350px;
+  background:#ff0000;
+  filter:blur(150px);
+  opacity:.08;
+  top:35%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  z-index:-1;
+  animation:glowMove 6s ease-in-out infinite alternate;
+}
+
+@keyframes glowMove{
+  from{
+    transform:translate(-60%,-45%);
+  }
+  to{
+    transform:translate(-40%,-55%);
+  }
+}
+
+/* ===== BACK BUTTON ===== */
 
 .back-btn{
   position:fixed;
-  top:20px;
-  left:20px;
+  top:22px;
+  left:22px;
+  z-index:20;
+
   text-decoration:none;
-  color:#a80000;
-  border:1px solid #ff0000;
-  padding:8px 15px;
+  color:#ff4a4a;
+
+  border:1px solid rgba(255,0,0,.65);
+  background:rgba(20,0,0,.6);
+  backdrop-filter:blur(12px);
+
+  padding:10px 18px;
+  border-radius:8px;
+
+  font-size:.7rem;
+  letter-spacing:1px;
+
+  transition:.3s;
 }
+
+.back-btn:hover{
+  color:white;
+  border-color:#ff0000;
+  box-shadow:
+    0 0 15px rgba(255,0,0,.7),
+    inset 0 0 15px rgba(255,0,0,.1);
+  transform:translateX(-3px);
+}
+
+/* ===== HEADER ===== */
+
+.header{
+  text-align:center;
+  padding:110px 20px 45px;
+  position:relative;
+}
+
+.header small{
+  display:block;
+  color:#ff4a4a;
+  font-size:.65rem;
+  letter-spacing:4px;
+  margin-bottom:15px;
+  opacity:.7;
+}
+
+.header h1{
+  font-size:clamp(2rem,6vw,4rem);
+  letter-spacing:5px;
+
+  color:#b90000;
+
+  text-shadow:
+    0 0 8px rgba(255,0,0,.5),
+    0 0 25px rgba(255,0,0,.35);
+
+  animation:titlePulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes titlePulse{
+  from{
+    text-shadow:
+      0 0 8px rgba(255,0,0,.4),
+      0 0 20px rgba(255,0,0,.2);
+  }
+
+  to{
+    text-shadow:
+      0 0 15px rgba(255,0,0,.8),
+      0 0 40px rgba(255,0,0,.4);
+  }
+}
+
+.header-line{
+  width:180px;
+  height:1px;
+  margin:25px auto 0;
+
+  background:linear-gradient(
+    90deg,
+    transparent,
+    #ff0000,
+    #fff,
+    #ff0000,
+    transparent
+  );
+
+  box-shadow:0 0 12px #ff0000;
+
+  animation:lineGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes lineGlow{
+  from{
+    width:120px;
+    opacity:.5;
+  }
+
+  to{
+    width:230px;
+    opacity:1;
+  }
+}
+
+/* ===== ACHIEVEMENT SECTION ===== */
 
 .achievement-container{
-  padding:50px 10%;
+  width:min(1100px,90%);
+  margin:auto;
+
+  padding:25px 0 90px;
+
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:30px;
+  grid-template-columns:repeat(2,1fr);
+  gap:22px;
 }
 
+/* ===== ACHIEVEMENT CARD ===== */
+
 .achievement{
-  background:rgba(255,0,255,0.06);
-  border:1px solid rgba(255,0,0,0.4);
-  padding:25px;
-  border-radius:15px;
-  transition:0.4s;
+  position:relative;
+  min-height:190px;
+
+  padding:30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(120,0,0,.22),
+      rgba(25,0,0,.6)
+    );
+
+  border:1px solid rgba(255,0,0,.3);
+  border-radius:16px;
+
+  backdrop-filter:blur(14px);
+
+  overflow:hidden;
+
+  transition:.4s ease;
+}
+
+.achievement::before{
+  content:"";
+  position:absolute;
+
+  width:120px;
+  height:120px;
+
+  right:-40px;
+  bottom:-40px;
+
+  background:#ff0000;
+  filter:blur(65px);
+
+  opacity:.07;
+
+  transition:.4s;
+}
+
+.achievement::after{
+  content:"";
+  position:absolute;
+
+  top:0;
+  left:0;
+
+  width:3px;
+  height:0;
+
+  background:#ff0000;
+  box-shadow:0 0 15px #ff0000;
+
+  transition:.4s;
 }
 
 .achievement:hover{
-  box-shadow:0 0 20px #ff00ff,0 0 40px red;
-  transform:translateY(-10px);
+  transform:translateY(-8px);
+
+  border-color:rgba(255,0,0,.8);
+
+  box-shadow:
+    0 15px 40px rgba(255,0,0,.12),
+    0 0 25px rgba(255,0,0,.18);
+}
+
+.achievement:hover::before{
+  opacity:.2;
+  transform:scale(1.4);
+}
+
+.achievement:hover::after{
+  height:100%;
+}
+
+/* ===== CARD NUMBER ===== */
+
+.achievement-number{
+  color:#ff3b3b;
+  font-size:.6rem;
+  letter-spacing:3px;
+  opacity:.65;
+}
+
+/* ===== CARD CONTENT ===== */
+
+.achievement h2{
+  margin-top:16px;
+  margin-bottom:12px;
+
+  font-size:1.05rem;
+  line-height:1.5;
+  letter-spacing:1px;
+
+  color:#fff;
+}
+
+.achievement p{
+  font-family:Arial,sans-serif;
+
+  color:#c9a8a8;
+
+  font-size:.85rem;
+  line-height:1.6;
+}
+
+.place{
+  color:#ff4444;
+  font-weight:bold;
+}
+
+/* ===== FOOTER STATUS ===== */
+
+.status{
+  width:min(1100px,90%);
+  margin:0 auto 55px;
+
+  padding:15px 20px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  border-top:1px solid rgba(255,0,0,.18);
+  border-bottom:1px solid rgba(255,0,0,.18);
+
+  color:#765c5c;
+
+  font-size:.55rem;
+  letter-spacing:2px;
+}
+
+.status-dot{
+  display:inline-block;
+
+  width:7px;
+  height:7px;
+
+  margin-right:8px;
+
+  background:#ff0000;
+  border-radius:50%;
+
+  box-shadow:0 0 12px #ff0000;
+
+  animation:blink 1.5s infinite;
+}
+
+@keyframes blink{
+  0%,100%{
+    opacity:1;
+  }
+
+  50%{
+    opacity:.3;
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media(max-width:700px){
+
+  .back-btn{
+    top:15px;
+    left:15px;
+    padding:8px 14px;
+  }
+
+  .header{
+    padding-top:100px;
+  }
+
+  .header h1{
+    font-size:2rem;
+    letter-spacing:3px;
+  }
+
+  .header small{
+    font-size:.55rem;
+    letter-spacing:2px;
+  }
+
+  .achievement-container{
+    grid-template-columns:1fr;
+    width:88%;
+  }
+
+  .achievement{
+    min-height:170px;
+    padding:25px;
+  }
+
+  .achievement h2{
+    font-size:.95rem;
+  }
+
+  .status{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<a href="explore.html" class="back-btn">← Back</a>
+<!-- BACK -->
 
-<h1>ACHIEVEMENTS XI RPL 2</h1>
+<a href="explore.html" class="back-btn">
+  ← Back
+</a>
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+  <small>/// CLASS RECORDS ///</small>
+
+  <h1>ACHIEVEMENTS</h1>
+
+  <div class="header-line"></div>
+
+</header>
+
+
+<!-- ACHIEVEMENTS -->
 
 <div class="achievement-container">
 
   <div class="achievement">
+
+    <span class="achievement-number">01 / S1</span>
+
     <h2>Software Engineering League S1</h2>
-    <p>1st Place - omens team</p>
+
+    <p>
+      <span class="place">1st Place</span> - Omens team
+    </p>
+
   </div>
 
+
   <div class="achievement">
+
+    <span class="achievement-number">02 / S1</span>
+
     <h2>Software Engineering Cup S1</h2>
-    <p>2nd Place - omens team</p>
+
+    <p>
+      <span class="place">2nd Place</span> - Omens team
+    </p>
+
   </div>
 
+
   <div class="achievement">
+
+    <span class="achievement-number">03 / CLASSMEET</span>
+
     <h2>Mobile Legends Classmeet Tournament</h2>
-    <p>2nd Place - omens</p>
+
+    <p>
+      <span class="place">2nd Place</span> - Omens
+    </p>
+
   </div>
+
 
   <div class="achievement">
+
+    <span class="achievement-number">04 / CLASSMEET</span>
+
     <h2>Magic Chess Classmeet Tournament</h2>
-    <p>2nd Place - Hutama Putra Abdy</p>
+
+    <p>
+      <span class="place">2nd Place</span> - Hutama Putra Abdy
+    </p>
+
   </div>
+
 
   <div class="achievement">
+
+    <span class="achievement-number">05 / CLASSMEET</span>
+
     <h2>Magic Chess Classmeet Tournament</h2>
-    <p>3rd Place - Khafi Haffar Islamay</p>
+
+    <p>
+      <span class="place">3rd Place</span> - Khafi Haffar Islamay
+    </p>
+
   </div>
 
-   <div class="achievement">
+
+  <div class="achievement">
+
+    <span class="achievement-number">06 / COMPETITION</span>
+
     <h2>Infographic Competition</h2>
-    <p>1st Place - Aliilah Dipa Sirly</p>
+
+    <p>
+      <span class="place">1st Place</span> - Aliilah Dipa Sirly
+    </p>
+
   </div>
 
+
   <div class="achievement">
+
+    <span class="achievement-number">07 / COMPETITION</span>
+
     <h2>MHQ Competition</h2>
-    <p>1st Place - Amira Tanisya Putri</p>
+
+    <p>
+      <span class="place">1st Place</span> - Amira Tanisya Putri
+    </p>
+
   </div>
 
+
   <div class="achievement">
+
+    <span class="achievement-number">08 / COMPETITION</span>
+
     <h2>Caligraphy Competition</h2>
-    <p>3rd Place - Kahila Balqis Althaf</p>
+
+    <p>
+      <span class="place">3rd Place</span> - Kahila Balqis Althaf
+    </p>
+
   </div>
+
+
+  <div class="achievement">
+
+    <span class="achievement-number">09 / CLASSMEET</span>
+
+    <h2>Classmeet Tournament</h2>
+
+    <p>
+      <span class="place">2nd Place</span> - Estafet Air Topeng
+    </p>
+
+  </div>
+
+
+  <div class="achievement">
+
+    <span class="achievement-number">10 / TOEIC</span>
+
+    <h2>TOEIC Highest Scores</h2>
+
+    <p>
+      <span class="place">1st Place</span> - Fidelya Raissa Amigusman
+    </p>
+
+  </div>
+
+
+  <div class="achievement">
+
+    <span class="achievement-number">11 / TOEIC</span>
+
+    <h2>TOEIC Highest Scores</h2>
+
+    <p>
+      <span class="place">2nd Place</span> - Bintang Noah Putra
+    </p>
+
+  </div>
+
+</div>
+
+
+<!-- STATUS -->
+
+<div class="status">
+
+  <span>
+    <span class="status-dot"></span>
+    ACHIEVEMENT DATABASE ONLINE
+  </span>
+
+  <span>
+    XII RPL 2 • SETWO.NEXUS
+  </span>
 
 </div>
 
 </body>
 </html>
-
