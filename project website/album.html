@@ -5,84 +5,319 @@
 <title>Full Album | setwo.nexus</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-body{
+
+*{
   margin:0;
-  background: radial-gradient(circle at top,#1a0033,#000);
-  font-family:'Orbitron',sans-serif;
-  color:white;
+  padding:0;
+  box-sizing:border-box;
 }
 
-h1{
-  text-align:center;
-  padding:40px 0;
-  color:#ff00ff;
-  text-shadow:0 0 20px #ff00ff,0 0 40px red;
+body{
+  background:
+    radial-gradient(circle at top, #0b2345 0%, #061326 45%, #02060d 100%);
+  font-family:'Orbitron',sans-serif;
+  color:white;
+  min-height:100vh;
+  overflow-x:hidden;
 }
+
+/* BACKGROUND GRID */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(0,140,255,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,140,255,0.055) 1px, transparent 1px);
+  background-size:45px 45px;
+  z-index:-1;
+  mask-image:linear-gradient(to bottom, black, transparent 90%);
+}
+
+/* BACK BUTTON */
 
 .back-btn{
   position:fixed;
-  top:20px;
-  left:20px;
+  top:22px;
+  left:22px;
+  z-index:10;
+
   text-decoration:none;
-  color:#ff00ff;
-  border:1px solid #ff00ff;
-  padding:8px 15px;
+  color:#8dccff;
+
+  border:1px solid rgba(80,180,255,0.5);
+  background:rgba(5,20,40,0.7);
+
+  padding:9px 17px;
+  border-radius:8px;
+
+  font-size:0.8rem;
+  letter-spacing:1px;
+
+  backdrop-filter:blur(10px);
+
+  transition:0.3s;
 }
 
-.gallery{
-  padding:20px 10%;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
+.back-btn:hover{
+  color:white;
+  border-color:#4db8ff;
+  box-shadow:
+    0 0 15px rgba(0,140,255,0.4),
+    inset 0 0 12px rgba(0,140,255,0.1);
+
+  transform:translateY(-2px);
 }
+
+/* TITLE */
+
+h1{
+  text-align:center;
+  padding:75px 20px 35px;
+
+  font-size:clamp(1.6rem,4vw,2.8rem);
+
+  color:#d9f1ff;
+
+  letter-spacing:4px;
+
+  text-shadow:
+    0 0 10px rgba(0,140,255,0.8),
+    0 0 30px rgba(0,80,180,0.6);
+
+  animation:titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow{
+
+  from{
+    text-shadow:
+      0 0 8px rgba(0,140,255,0.5),
+      0 0 20px rgba(0,80,180,0.4);
+  }
+
+  to{
+    text-shadow:
+      0 0 15px rgba(80,190,255,0.9),
+      0 0 35px rgba(0,100,220,0.7);
+  }
+
+}
+
+/* SUBTITLE */
+
+h1::after{
+  content:"CLASS MEMORIES • 2026";
+
+  display:block;
+
+  margin-top:12px;
+
+  font-family:'Orbitron',sans-serif;
+  font-size:0.55rem;
+
+  font-weight:400;
+
+  color:#6ca9d6;
+
+  letter-spacing:3px;
+}
+
+/* GALLERY */
+
+.gallery{
+  padding:25px 8% 70px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
+
+  gap:22px;
+
+  max-width:1500px;
+  margin:auto;
+}
+
+/* IMAGE CARD */
 
 .gallery img{
   width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+
   cursor:pointer;
-  border-radius:10px;
-  transition:0.3s;
-  width: 100%;
-  aspect-ratio: 16/9;
-  object-fit: cover;
+
+  border-radius:14px;
+
+  border:1px solid rgba(70,170,255,0.22);
+
+  background:#071525;
+
+  padding:4px;
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+
+  filter:saturate(0.9);
 }
 
+/* HOVER */
+
 .gallery img:hover{
-  box-shadow:0 0 20px #ff00ff,0 0 40px red;
-  transform:scale(1.05);
+  transform:translateY(-7px) scale(1.025);
+
+  border-color:rgba(70,190,255,0.8);
+
+  box-shadow:
+    0 8px 30px rgba(0,80,180,0.3),
+    0 0 20px rgba(0,150,255,0.25);
+
+  filter:saturate(1.1);
 }
 
 /* POPUP */
+
 .popup{
   display:none;
+
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.8);
+
+  background:rgba(1,7,16,0.94);
+
+  backdrop-filter:blur(12px);
+
   justify-content:center;
   align-items:center;
+
+  z-index:100;
 }
 
+/* POPUP IMAGE */
+
 .popup img{
-  max-width:80%;
-  border-radius:10px;
+  max-width:88%;
+  max-height:85vh;
+
+  object-fit:contain;
+
+  border-radius:12px;
+
+  border:1px solid rgba(80,190,255,0.5);
+
+  box-shadow:
+    0 0 35px rgba(0,120,255,0.35);
+
+  animation:popupIn 0.25s ease;
 }
+
+@keyframes popupIn{
+
+  from{
+    opacity:0;
+    transform:scale(0.94);
+  }
+
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+
+}
+
+/* CLOSE */
 
 .close{
   position:absolute;
-  top:30px;
-  right:40px;
+
+  top:25px;
+  right:35px;
+
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
   font-size:2rem;
+
   cursor:pointer;
-  color:#ff00ff;
+
+  color:#8dccff;
+
+  border:1px solid rgba(80,180,255,0.4);
+
+  border-radius:50%;
+
+  background:rgba(5,20,40,0.7);
+
+  transition:0.3s;
 }
 
-@media(max-width:768px){
-  .gallery{
-    grid-template-columns:repeat(2,1fr);
-  }
+.close:hover{
+  color:white;
+
+  border-color:#55bdff;
+
+  box-shadow:0 0 20px rgba(0,150,255,0.5);
+
+  transform:rotate(90deg);
 }
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .back-btn{
+    top:15px;
+    left:15px;
+  }
+
+  h1{
+    padding-top:75px;
+    font-size:1.45rem;
+    letter-spacing:2px;
+  }
+
+  h1::after{
+    font-size:0.45rem;
+    letter-spacing:2px;
+  }
+
+  .gallery{
+    padding:20px 5% 50px;
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+    gap:12px;
+  }
+
+  .gallery img{
+    border-radius:10px;
+    padding:3px;
+  }
+
+  .popup img{
+    max-width:94%;
+    max-height:80vh;
+  }
+
+  .close{
+    top:18px;
+    right:18px;
+  }
+
+}
+
 </style>
 </head>
 
@@ -90,9 +325,10 @@ h1{
 
 <a href="explore.html" class="back-btn">← Back</a>
 
-<h1>FULL ALBUM XI RPL 2</h1>
+<h1>FULL ALBUM XII RPL 2</h1>
 
 <div class="gallery">
+
   <img src="album/doksikelas1.jpeg">
   <img src="album/doksikelas2.jpeg">
   <img src="album/doksikelas3.jpeg">
@@ -120,29 +356,69 @@ h1{
   <img src="album/doksikelas25.jpeg">
   <img src="album/doksikelas26.jpeg">
   <img src="album/doksikelas27.jpeg">
+  <img src="album/doksikelas28.jpeg">
+
 </div>
 
 <div class="popup" id="popup">
+
   <span class="close" id="close">&times;</span>
+
   <img id="popupImg">
+
 </div>
 
 <script>
-const images=document.querySelectorAll(".gallery img");
-const popup=document.getElementById("popup");
-const popupImg=document.getElementById("popupImg");
-const close=document.getElementById("close");
 
-images.forEach(img=>{
-  img.addEventListener("click",()=>{
-    popup.style.display="flex";
-    popupImg.src=img.src;
+const images = document.querySelectorAll(".gallery img");
+
+const popup = document.getElementById("popup");
+const popupImg = document.getElementById("popupImg");
+const close = document.getElementById("close");
+
+
+images.forEach(img => {
+
+  img.addEventListener("click", () => {
+
+    popup.style.display = "flex";
+
+    popupImg.src = img.src;
+
   });
+
 });
 
-close.onclick=()=>popup.style.display="none";
+
+close.onclick = () => {
+
+  popup.style.display = "none";
+
+};
+
+
+popup.addEventListener("click", (e) => {
+
+  if(e.target === popup){
+
+    popup.style.display = "none";
+
+  }
+
+});
+
+
+document.addEventListener("keydown", (e) => {
+
+  if(e.key === "Escape"){
+
+    popup.style.display = "none";
+
+  }
+
+});
+
 </script>
 
 </body>
 </html>
-
